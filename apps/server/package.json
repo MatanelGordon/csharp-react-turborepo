@@ -1,0 +1,12 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "ASP.NET server for the client",
+	"private": true,
+	"scripts": {
+		"prepare": "dotnet restore",
+		"dev": "dotnet run -la http --project Server/Server.csproj",
+		"build": "dotnet publish -c Release --no-restore -o dist",
+		"lint": "dotnet format"
+	}
+}
