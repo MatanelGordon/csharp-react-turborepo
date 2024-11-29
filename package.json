@@ -1,0 +1,34 @@
+{
+	"name": "csharp-react-turbo-monorepo",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"dependencies": "sh scripts/update-nested-package-lock.sh",
+		"prepare": "sh scripts/prepare.sh"
+	},
+	"devDependencies": {
+		"husky": "^9.1.7",
+		"lint-staged": "^15.2.10",
+		"prettier": "latest",
+		"turbo": "latest"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"packageManager": "npm@10.2.0",
+	"lint-staged": {
+		"*.{js,ts,css,json}": [
+			"prettier --write"
+		],
+		"*.cs": [
+			"node scripts/format-csharp-files.js"
+		]
+	}
+}
