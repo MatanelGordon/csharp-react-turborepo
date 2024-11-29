@@ -1,0 +1,24 @@
+{
+  "name": "csharp-react-turbo-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "dependencies": "sh scripts/update-nested-package-lock.sh",
+    "prepare": "sh scripts/prepare.sh"
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "npm@10.2.0"
+}
