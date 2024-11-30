@@ -1,73 +1,137 @@
-# Turborepo starter
+# Boilerplate C#, React and Typescript Powered by Turborepo
 
-This is an official npm starter turborepo.
+This monorepo combines **C# (.NET 8 and ASP.NET)** for backend development and **Vite with React and TypeScript** for frontend development. It leverages **Turborepo** for efficient task scheduling and dependency management. 
 
-## What's inside?
+Additionally, it includes custom scripts to synchronize package dependencies, ensuring a seamless development experience.
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+---
 
-### Apps and Packages
+## Table of Contents
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Scripts and Automation](#scripts-and-automation)
+- [Usage](#usage)
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+---
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Tech Stack
 
-### Utilities
+### Backend:
+- **.NET 8** (C#) with ASP.NET
+- **NuGet** for package management
 
-This turborepo has some additional tools already setup for you:
+### Frontend:
+- **React** with TypeScript
+- **Vite** for fast builds and live reload
+- **npm** for dependency management
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Build Tool:
+- **Turborepo** for monorepo orchestration
 
-### Build
+---
 
-To build all apps and packages, run the following command:
+## Getting Started
+
+### Prerequisites:
+- Node.js and npm (v18+)
+- .NET 8 SDK
+- (Optional) Docker
+
+---
+
+### Installation
+
+Run the following command to set up the monorepo:
+```bash
+npm install
+```
+- Installs all `npm` dependencies for the frontend.
+- Automatically installs **NuGet packages** for the backend.
+- Runs shell scripts to generate `package-lock.json` files for all sub-packages.
+
+---
+
+## Project Structure
 
 ```
-cd my-turborepo
-npm run build
+/monorepo
+├── /apps
+│   ├── /server        # C# ASP.NET backend
+│   └── /client           # React frontend
+├── /scripts           # Shell scripts for monorepo management
+├── turbo.json         # Turborepo configuration
+├── package.json       # Root package manager file
+├── nuget.config       # NuGet configuration
+└── README.md          # Documentation
 ```
 
-### Develop
+- **`/apps/server`**:
+    - Contains the ASP.NET backend project.
+    - Manages dependencies via `nuget.config`.
 
-To develop all apps and packages, run the following command:
+- **`/apps/client`**:
+    - Contains the React frontend built with Vite.
+    - Manages dependencies via `package.json`.
 
+---
+
+## Scripts and Automation
+
+### Key Shell Scripts:
+1. **`/scripts/update-package-lock.sh`**:
+    - Generates or updates `package-lock.json` files for all sub-packages.
+
+2. **`/scripts/sync-nuget.sh`**:
+    - Ensures all required NuGet packages are installed.
+
+3. **`/scripts/monorepo-setup.sh`**:
+    - Combines the setup process for both `npm` and `NuGet`.
+
+---
+
+## Usage
+
+### Development Workflow
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+   This ensures that both `npm` and NuGet packages are installed and synchronized.
+
+2. **Start Development Servers**:
+    - **Backend**:
+      ```bash
+      turbo run dev --scope=server
+      ```
+    - **Frontend**:
+      ```bash
+      turbo run dev --scope=web
+      ```
+
+3. **Build for Production**:
+   ```bash
+   turbo run build
+   ```
+
+4. **Update Dependencies**:
+    - For `npm`:
+      ```bash
+      npm install
+      ```
+    - For NuGet:
+      ```bash
+      sh ./scripts/sync-nuget.sh
+      ```
+
+---
+
+### Notes
+- The backend and frontend are configured to work seamlessly with Turborepo, enabling optimized builds and deployments.
+- Scripts handle monorepo-specific nuances, such as generating `package-lock.json` files for sub-packages and syncing NuGet dependencies.
+
+---
+
+Happy Coding! 🚀
 ```
-cd my-turborepo
-npm run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
